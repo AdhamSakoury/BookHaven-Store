@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookHaven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5CF6',
+                        secondary: '#EC4899',
+                        dark: '#1F2937',
+                        darker: '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-darker text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-dark/80 backdrop-blur-md shadow-lg transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='index.html'">
+                <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <span class="ml-2 text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">BookHaven</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-primary font-semibold">Home</a>
+                <a href="books.html" class="hover:text-primary transition-colors">Books</a>
+                <a href="#bestsellers" class="hover:text-primary transition-colors">Bestsellers</a>
+                <a href="#arabic-books" class="hover:text-primary transition-colors">Arabic Books</a>
+                <a href="cart.html" class="hover:text-primary transition-colors relative">
+                    Cart
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </a>
+                <a href="#" onclick="showWishlist()" class="hover:text-primary transition-colors">Wishlist</a>
+            </div>
+
+            <!-- Right Side -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 24.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+
+                <!-- Auth Buttons - Desktop Only (HIDDEN ON MOBILE) -->
+                <div id="auth-buttons" class="hide-mobile items-center space-x-2">
+                    <a href="login.html" class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-all text-sm">Login</a>
+                    <a href="register.html" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-purple-700 transition-all text-sm">Register</a>
+                </div>
+
+                <!-- User Menu - Desktop Only (Logged in) - WITH PROFILE PHOTO -->
+                <div id="user-menu" class="hide-mobile relative">
+                    <button onclick="toggleUserMenu()" class="flex items-center space-x-2 focus:outline-none">
+                        <!-- Profile Photo (hidden if no photo) -->
+                        <img id="nav-profile-img" src="" alt="Profile" class="hidden w-8 h-8 rounded-full object-cover border-2 border-primary">
+                        <!-- Initial Letter (shown if no photo) -->
+                        <div id="nav-profile-initial" class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold">
+                            U
+                        </div>
+                    </button>
+                    <!-- Dropdown Menu with Profile Link -->
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-dark rounded-lg shadow-xl py-2">
+                        <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
+                        <a href="#" onclick="logout()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-red-500">Logout</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-gray-200 dark:border-gray-700 mt-2">
+            <div class="pt-4 space-y-2">
+                <a href="index.html" class="block py-2 px-2 text-primary font-semibold rounded hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
+                <a href="books.html" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Books</a>
+                <a href="#bestsellers" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Bestsellers</a>
+                <a href="#arabic-books" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Arabic Books</a>
+                <a href="cart.html" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Cart</a>
+                <a href="#" onclick="showWishlist()" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Wishlist</a>
+                
+                <!-- Mobile Auth Buttons - Only show in mobile menu -->
+                <div id="mobile-auth-buttons" class="pt-4 border-t border-gray-200 dark:border-gray-700 mt-2 space-y-2">
+                    <a href="login.html" class="block w-full text-center px-4 py-3 text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-all font-semibold">Login</a>
+                    <a href="register.html" class="block w-full text-center px-4 py-3 bg-primary text-white rounded-lg hover:bg-purple-700 transition-all font-semibold">Register</a>
+                </div>
+                
+                <!-- Mobile User Menu (Logged in) - WITH PROFILE PHOTO -->
+                <div id="mobile-user-menu" class="hidden pt-4 border-t border-gray-200 dark:border-gray-700 mt-2">
+                    <div class="flex items-center px-2 py-2 mb-2">
+                        <!-- Mobile Profile Photo -->
+                        <img id="mobile-nav-profile-img" src="" alt="Profile" class="hidden w-10 h-10 rounded-full object-cover border-2 border-primary mr-3">
+                        <!-- Mobile Initial Letter -->
+                        <div id="mobile-nav-profile-initial" class="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold mr-3">
+                            U
+                        </div>
+                        <div>
+                            <span class="font-semibold block" id="mobile-user-name">My Account</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400" id="mobile-user-email">user@example.com</span>
+                        </div>
+                    </div>
+                    <a href="profile.html" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">My Profile</a>
+                    <a href="#" onclick="logout()" class="block py-3 px-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors font-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- Book Details -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="book-details-container">
+                <!-- Book details will be loaded dynamically -->
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold mb-6">Customer Reviews</h2>
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-dark p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                ★★★★★
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Sarah M.</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">Absolutely loved this book! Couldn't put it down.</p>
+                    </div>
+                    <div class="bg-white dark:bg-dark p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                ★★★★☆
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">John D.</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">Great read, highly recommended for fans of the genre.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">BookHaven</h3>
+                    <p class="text-sm">Your premier destination for literary discoveries.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-white">Home</a></li>
+                        <li><a href="books.html" class="hover:text-white">Books</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <p class="text-sm">support@bookhaven.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
+                <p>&copy; 2024 BookHaven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeWishlist()"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-dark rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white dark:bg-dark px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Your Wishlist</h3>
+                    <div id="wishlist-items" class="mt-4 space-y-4 max-h-96 overflow-y-auto"></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="closeWishlist()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-purple-700 sm:ml-3 sm:w-auto sm:text-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="hidden fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-y-20 opacity-0 z-50">
+        <span id="toast-message">Message</span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/books.js"></script>
+</body>
+</html>

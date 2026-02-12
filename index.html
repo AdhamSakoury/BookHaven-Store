@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHaven - Your Literary Escape</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5CF6',
+                        secondary: '#EC4899',
+                        dark: '#1F2937',
+                        darker: '#111827',
+                        gold: '#F59E0B',
+                        emerald: '#10B981'
+                    },
+                    fontFamily: {
+                        arabic: ['Noto Naskh Arabic', 'Traditional Arabic', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-darker text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-dark/80 backdrop-blur-md shadow-lg transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='index.html'">
+                <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <span class="ml-2 text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">BookHaven</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-primary font-semibold">Home</a>
+                <a href="books.html" class="hover:text-primary transition-colors">Books</a>
+                <a href="#bestsellers" class="hover:text-primary transition-colors">Bestsellers</a>
+                <a href="#arabic-books" class="hover:text-primary transition-colors">Arabic Books</a>
+                <a href="cart.html" class="hover:text-primary transition-colors relative">
+                    Cart
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </a>
+                <a href="#" onclick="showWishlist()" class="hover:text-primary transition-colors">Wishlist</a>
+            </div>
+
+            <!-- Right Side -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 24.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+
+                <!-- Auth Buttons - Desktop Only (HIDDEN ON MOBILE) -->
+                <div id="auth-buttons" class="hide-mobile items-center space-x-2">
+                    <a href="login.html" class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-all text-sm">Login</a>
+                    <a href="register.html" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-purple-700 transition-all text-sm">Register</a>
+                </div>
+
+                <!-- User Menu - Desktop Only (Logged in) - WITH PROFILE PHOTO -->
+                <div id="user-menu" class="hide-mobile relative">
+                    <button onclick="toggleUserMenu()" class="flex items-center space-x-2 focus:outline-none">
+                        <!-- Profile Photo (hidden if no photo) -->
+                        <img id="nav-profile-img" src="" alt="Profile" class="hidden w-8 h-8 rounded-full object-cover border-2 border-primary">
+                        <!-- Initial Letter (shown if no photo) -->
+                        <div id="nav-profile-initial" class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold">
+                            U
+                        </div>
+                    </button>
+                    <!-- Dropdown Menu with Profile Link -->
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-dark rounded-lg shadow-xl py-2">
+                        <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
+                        <a href="#" onclick="logout()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-red-500">Logout</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-gray-200 dark:border-gray-700 mt-2">
+            <div class="pt-4 space-y-2">
+                <a href="index.html" class="block py-2 px-2 text-primary font-semibold rounded hover:bg-gray-100 dark:hover:bg-gray-700">Home</a>
+                <a href="books.html" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Books</a>
+                <a href="#bestsellers" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Bestsellers</a>
+                <a href="#arabic-books" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Arabic Books</a>
+                <a href="cart.html" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Cart</a>
+                <a href="#" onclick="showWishlist()" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">Wishlist</a>
+                
+                <!-- Mobile Auth Buttons - Only show in mobile menu -->
+                <div id="mobile-auth-buttons" class="pt-4 border-t border-gray-200 dark:border-gray-700 mt-2 space-y-2">
+                    <a href="login.html" class="block w-full text-center px-4 py-3 text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-all font-semibold">Login</a>
+                    <a href="register.html" class="block w-full text-center px-4 py-3 bg-primary text-white rounded-lg hover:bg-purple-700 transition-all font-semibold">Register</a>
+                </div>
+                
+                <!-- Mobile User Menu (Logged in) - WITH PROFILE PHOTO -->
+                <div id="mobile-user-menu" class="hidden pt-4 border-t border-gray-200 dark:border-gray-700 mt-2">
+                    <div class="flex items-center px-2 py-2 mb-2">
+                        <!-- Mobile Profile Photo -->
+                        <img id="mobile-nav-profile-img" src="" alt="Profile" class="hidden w-10 h-10 rounded-full object-cover border-2 border-primary mr-3">
+                        <!-- Mobile Initial Letter -->
+                        <div id="mobile-nav-profile-initial" class="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold mr-3">
+                            U
+                        </div>
+                        <div>
+                            <span class="font-semibold block" id="mobile-user-name">My Account</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400" id="mobile-user-email">user@example.com</span>
+                        </div>
+                    </div>
+                    <a href="profile.html" class="block py-2 px-2 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">My Profile</a>
+                    <a href="#" onclick="logout()" class="block py-3 px-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors font-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-purple-600 via-primary to-pink-500 text-white overflow-hidden min-h-[90vh] flex items-center">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute top-40 left-40 w-80 h-80 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div class="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-6 text-sm font-semibold tracking-wide uppercase">
+                        📚 Over 10,000 Books Available
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        Discover Your Next
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300">Great Adventure</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Explore thousands of books across every genre. From timeless classics to contemporary masterpieces, find your perfect read today.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="books.html" class="px-8 py-4 bg-white text-primary rounded-full font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all text-center">
+                            Browse Collection
+                        </a>
+                        <a href="#featured" class="px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all text-center">
+                            View Featured
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="mt-12 grid grid-cols-3 gap-8 text-center lg:text-left">
+                        <div>
+                            <div class="text-3xl font-bold text-yellow-300">10K+</div>
+                            <div class="text-sm text-gray-200">Books</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-yellow-300">50+</div>
+                            <div class="text-sm text-gray-200">Categories</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-yellow-300">24h</div>
+                            <div class="text-sm text-gray-200">Delivery</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Image/Illustration -->
+                <div class="hidden lg:block relative">
+                    <div class="relative w-full h-[600px]">
+                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600&h=800&fit=crop" alt="Books" class="absolute top-0 right-0 w-80 h-96 object-cover rounded-2xl shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&h=800&fit=crop" alt="Reading" class="absolute top-20 left-0 w-80 h-96 object-cover rounded-2xl shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-500 z-10">
+                        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600&h=800&fit=crop" alt="Library" class="absolute bottom-0 right-20 w-80 h-96 object-cover rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Wave Separator -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50 dark:fill-darker"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-50 dark:bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-dark p-6 rounded-xl shadow-lg text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8 text-primary group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Curated Selection</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Handpicked books by our expert editors</p>
+                </div>
+                
+                <div class="bg-white dark:bg-dark p-6 rounded-xl shadow-lg text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-emerald/10 rounded-full flex items-center justify-center group-hover:bg-emerald group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8 text-emerald group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Best Prices</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Competitive prices and regular discounts</p>
+                </div>
+                
+                <div class="bg-white dark:bg-dark p-6 rounded-xl shadow-lg text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8 text-gold group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Fast Delivery</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Free shipping on orders over $50</p>
+                </div>
+                
+                <div class="bg-white dark:bg-dark p-6 rounded-xl shadow-lg text-center group hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-secondary/10 rounded-full flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8 text-secondary group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">24/7 Support</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Round the clock customer service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Books Section -->
+    <section id="featured" class="py-20 bg-white dark:bg-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-primary font-semibold tracking-wide uppercase text-sm">Editor's Choice</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Featured Books</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Handpicked selections from our expert curators. These books represent the finest in contemporary and classic literature.</p>
+            </div>
+            
+            <div id="featured-books" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Books will be loaded dynamically -->
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="books.html" class="inline-flex items-center px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-purple-700 transition-all transform hover:scale-105 shadow-lg">
+                    View All Books
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bestsellers Section -->
+    <section id="bestsellers" class="py-20 bg-gray-50 dark:bg-darker relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <span class="text-gold font-semibold tracking-wide uppercase text-sm">🔥 Trending Now</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2">Bestsellers</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">Most popular books this month</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button onclick="scrollBestsellers('left')" class="p-3 rounded-full bg-white dark:bg-dark shadow-lg hover:bg-primary hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button onclick="scrollBestsellers('right')" class="p-3 rounded-full bg-white dark:bg-dark shadow-lg hover:bg-primary hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="bestsellers-container" class="flex overflow-x-auto space-x-6 pb-4 snap-x snap-mandatory scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <!-- Bestsellers will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Arabic Books Section -->
+    <section id="arabic-books" class="py-20 bg-white dark:bg-dark" dir="rtl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald font-semibold tracking-wide uppercase text-sm">كتب عربية</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4 font-arabic">المكتبة العربية</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-arabic text-lg">
+                    مجموعة متميزة من أهم الإصدارات العربية في الأدب والفكر والتاريخ
+                </p>
+            </div>
+            
+            <div id="arabic-books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Arabic books will be loaded dynamically -->
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="books.html?category=Arabic" class="inline-flex items-center px-8 py-4 bg-emerald text-white rounded-full font-semibold hover:bg-emerald-600 transition-all transform hover:scale-105 shadow-lg font-arabic">
+                    عرض جميع الكتب العربية
+                    <svg class="mr-2 w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-darker dark:to-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Browse by Category</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Explore our extensive collection organized by genre and subject matter</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="group cursor-pointer" onclick="filterByCategory('Fiction')">
+                    <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                            <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            <span class="text-xl font-bold">Fiction</span>
+                            <span class="text-sm opacity-80 mt-1">2,400+ books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" onclick="filterByCategory('Non-Fiction')">
+                    <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-teal-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                            <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="text-xl font-bold">Non-Fiction</span>
+                            <span class="text-sm opacity-80 mt-1">1,800+ books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" onclick="filterByCategory('Mystery')">
+                    <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-pink-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                            <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <span class="text-xl font-bold">Mystery</span>
+                            <span class="text-sm opacity-80 mt-1">950+ books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" onclick="filterByCategory('Sci-Fi')">
+                    <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-indigo-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                            <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <span class="text-xl font-bold">Sci-Fi</span>
+                            <span class="text-sm opacity-80 mt-1">720+ books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" onclick="filterByCategory('Romance')">
+                    <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-rose-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                            <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="text-xl font-bold">Romance</span>
+                            <span class="text-sm opacity-80 mt-1">1,200+ books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" onclick="filterByCategory('Arabic')">
+                    <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                            <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                            </svg>
+                            <span class="text-xl font-bold font-arabic">عربي</span>
+                            <span class="text-sm opacity-80 mt-1">Arabic Books</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="py-20 bg-white dark:bg-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="text-secondary font-semibold tracking-wide uppercase text-sm">✨ Just Arrived</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2">New Arrivals</h2>
+                </div>
+                <a href="books.html?sort=newest" class="mt-4 md:mt-0 text-primary hover:text-purple-500 font-semibold flex items-center">
+                    View All
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+            
+            <div id="new-arrivals" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- New arrivals will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Spotlight Section -->
+    <section class="py-20 bg-gradient-to-r from-purple-900 to-indigo-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=1200&h=600&fit=crop" alt="Library" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-yellow-400 font-semibold tracking-wide uppercase text-sm">Author Spotlight</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Naguib Mahfouz</h2>
+                    <p class="text-xl text-gray-300 mb-6">Nobel Prize-winning Egyptian writer who is one of the most famous writers of Arabic literature. His works explore the social and political life of Egypt.</p>
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span class="px-4 py-2 bg-white/10 rounded-full text-sm">Nobel Prize 1988</span>
+                        <span class="px-4 py-2 bg-white/10 rounded-full text-sm">34 Novels</span>
+                        <span class="px-4 py-2 bg-white/10 rounded-full text-sm">350+ Short Stories</span>
+                    </div>
+                    <a href="books.html?author=Mahfouz" class="inline-flex items-center px-6 py-3 bg-white text-purple-900 rounded-full font-bold hover:bg-gray-100 transition-all">
+                        Explore Works
+                    </a>
+                </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&h=700&fit=crop" alt="Books" class="rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                    <div class="absolute -bottom-6 -left-6 bg-white dark:bg-dark p-6 rounded-xl shadow-xl max-w-xs">
+                        <p class="text-gray-800 dark:text-white font-arabic text-lg mb-2">"Home is not where you were born; home is where all your attempts to escape cease."</p>
+                        <p class="text-primary font-semibold">— Naguib Mahfouz</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50 dark:bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">What Readers Say</h2>
+                <p class="text-gray-600 dark:text-gray-400">Join thousands of satisfied book lovers</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-dark p-8 rounded-2xl shadow-lg relative">
+                    <div class="absolute -top-4 left-8 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-2xl">"</div>
+                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">"The best online bookstore I've ever used! Amazing collection of Arabic literature that I couldn't find anywhere else."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white font-bold text-lg">A</div>
+                        <div class="ml-4">
+                            <div class="font-bold">Ahmed Hassan</div>
+                            <div class="text-sm text-gray-500">Cairo, Egypt</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark p-8 rounded-2xl shadow-lg relative">
+                    <div class="absolute -top-4 left-8 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-2xl">"</div>
+                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">"Fast delivery, great prices, and the curated collections make discovering new books so easy. Highly recommended!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-emerald to-teal flex items-center justify-center text-white font-bold text-lg">S</div>
+                        <div class="ml-4">
+                            <div class="font-bold">Sarah Johnson</div>
+                            <div class="text-sm text-gray-500">London, UK</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark p-8 rounded-2xl shadow-lg relative">
+                    <div class="absolute -top-4 left-8 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-2xl">"</div>
+                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">"As a student of Arabic literature, this site has been invaluable. The selection is unparalleled and the service is excellent."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-gold to-orange flex items-center justify-center text-white font-bold text-lg">M</div>
+                        <div class="ml-4">
+                            <div class="font-bold">Dr. Maria Garcia</div>
+                            <div class="text-sm text-gray-500">Madrid, Spain</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-primary relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center text-white relative z-10">
+            <h2 class="text-4xl font-bold mb-4">Join Our Reading Community</h2>
+            <p class="text-xl text-purple-100 mb-8">Subscribe for exclusive offers, new arrivals, and curated reading lists. Get 15% off your first order!</p>
+            <form onsubmit="subscribeNewsletter(event)" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="Enter your email" required
+                    class="flex-1 px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-purple-300 text-lg">
+                <button type="submit" class="px-8 py-4 bg-dark text-white rounded-full font-bold hover:bg-gray-800 transition-colors text-lg shadow-lg">
+                    Subscribe
+                </button>
+            </form>
+            <p class="mt-4 text-sm text-purple-200">Join 50,000+ readers. No spam, unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-gray-300 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <span class="ml-2 text-2xl font-bold text-white">BookHaven</span>
+                    </div>
+                    <p class="text-sm mb-4">Your premier destination for literary discoveries. We bring the world's best books to your doorstep.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="index.html" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="books.html" class="hover:text-primary transition-colors">Browse Books</a></li>
+                        <li><a href="#bestsellers" class="hover:text-primary transition-colors">Bestsellers</a></li>
+                        <li><a href="#arabic-books" class="hover:text-primary transition-colors font-arabic">الكتب العربية</a></li>
+                        <li><a href="cart.html" class="hover:text-primary transition-colors">Shopping Cart</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-primary transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Returns & Exchanges</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Order Tracking</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            support@bookhaven.com
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            1-800-BOOKS
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-2 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            123 Book Street, Literary District<br>New York, NY 10001
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400">&copy; 2024 BookHaven. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-sm text-gray-400">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeWishlist()"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-dark rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white dark:bg-dark px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">Your Wishlist</h3>
+                            <div id="wishlist-items" class="mt-4 space-y-4 max-h-96 overflow-y-auto">
+                                <!-- Wishlist items will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="closeWishlist()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-purple-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-y-20 opacity-0 z-50">
+        <span id="toast-message">Item added to cart!</span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/books.js"></script>
+</body>
+</html>
