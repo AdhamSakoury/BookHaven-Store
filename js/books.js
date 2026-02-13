@@ -1,12 +1,4 @@
-/**
- * Books Management JavaScript for BookHaven
- * Handles book data, display, filtering, and search
- */
-
-// Comprehensive Book Data - English & Arabic
 const booksData = [
-    // ENGLISH BOOKS
-    // Classics
     {
         id: 1,
         title: "The Great Gatsby",
@@ -163,7 +155,6 @@ const booksData = [
         isNew: true,
         isBestseller: true
     },
-    // More English Books
     {
         id: 13,
         title: "The Midnight Library",
@@ -320,8 +311,6 @@ const booksData = [
         isNew: true,
         isBestseller: true
     },
-
-    // ARABIC BOOKS
     {
         id: 25,
         title: "أولاد حارتنا",
@@ -708,7 +697,6 @@ const booksData = [
     }
 ];
 
-// Initialize books on page load
 document.addEventListener('DOMContentLoaded', function() {
     const path = window.location.pathname;
     
@@ -725,18 +713,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Load Featured Books (Home Page)
 function loadFeaturedBooks() {
     const container = document.getElementById('featured-books');
     if (!container) return;
     
-    // Get first 8 books as featured (mixed English and Arabic)
     const featuredBooks = booksData.slice(0, 8);
     
     container.innerHTML = featuredBooks.map(book => createBookCard(book)).join('');
 }
 
-// Load Bestsellers
 function loadBestsellers() {
     const container = document.getElementById('bestsellers-container');
     if (!container) return;
@@ -746,7 +731,6 @@ function loadBestsellers() {
     container.innerHTML = bestsellers.map(book => createHorizontalBookCard(book)).join('');
 }
 
-// Load Arabic Books
 function loadArabicBooks() {
     const container = document.getElementById('arabic-books-grid');
     if (!container) return;
@@ -756,7 +740,6 @@ function loadArabicBooks() {
     container.innerHTML = arabicBooks.map(book => createBookCard(book, true)).join(''); // Pass true here
 }
 
-// Load New Arrivals
 function loadNewArrivals() {
     const container = document.getElementById('new-arrivals');
     if (!container) return;
@@ -766,15 +749,11 @@ function loadNewArrivals() {
     container.innerHTML = newArrivals.map(book => createBookCard(book)).join('');
 }
 
-// Create Book Card HTML
 function createBookCard(book, forceArabic = false) {
     const isInWishlist = isBookInWishlist(book.id);
     
-    // Determine if we should show Arabic text
-    // Show Arabic if: book is Arabic AND (forceArabic is true OR we're on Arabic section)
     const showArabic = book.language === 'Arabic' && (forceArabic || book.category === 'Arabic');
     
-    // Choose display text based on language
     const displayTitle = showArabic ? book.title : (book.titleEn || book.title);
     const displayAuthor = showArabic ? book.author : (book.authorEn || book.author);
     const displayDescription = showArabic ? book.description : (book.descriptionEn || book.description);
@@ -822,7 +801,6 @@ function createBookCard(book, forceArabic = false) {
         </div>
     `;
 }
-// Create Horizontal Book Card for Bestsellers
 function createHorizontalBookCard(book) {
     const isInWishlist = isBookInWishlist(book.id);
     const displayTitle = book.titleEn || book.title;
@@ -855,7 +833,6 @@ function createHorizontalBookCard(book) {
     `;
 }
 
-// Scroll Bestsellers
 function scrollBestsellers(direction) {
     const container = document.getElementById('bestsellers-container');
     if (container) {
@@ -867,7 +844,6 @@ function scrollBestsellers(direction) {
     }
 }
 
-// Load All Books (Books Page)
 function loadAllBooks() {
     const container = document.getElementById('books-grid');
     if (!container) return;
@@ -875,7 +851,6 @@ function loadAllBooks() {
     displayBooks(booksData);
 }
 
-// Display Books in Grid
 function displayBooks(books) {
     const container = document.getElementById('books-grid');
     const noResults = document.getElementById('no-results');
@@ -895,13 +870,11 @@ function displayBooks(books) {
     container.innerHTML = books.map(book => createBookCard(book)).join('');
 }
 
-// View Book Details
 function viewBookDetails(bookId) {
     sessionStorage.setItem('selectedBookId', bookId);
     window.location.href = 'book-details.html';
 }
 
-// Load Book Details Page
 function loadBookDetails() {
     const bookId = parseInt(sessionStorage.getItem('selectedBookId'));
     const container = document.getElementById('book-details-container');
@@ -969,7 +942,6 @@ function loadBookDetails() {
     `;
 }
 
-// Search Books
 function searchBooks(query) {
     const filtered = booksData.filter(book => {
         const searchIn = `${book.title} ${book.titleEn || ''} ${book.author} ${book.authorEn || ''} ${book.category}`.toLowerCase();
@@ -978,7 +950,6 @@ function searchBooks(query) {
     displayBooks(filtered);
 }
 
-// Filter Books by Category
 function filterBooks() {
     const category = document.getElementById('category-filter').value;
     const searchQuery = document.getElementById('search-input').value.toLowerCase();
@@ -1000,7 +971,6 @@ function filterBooks() {
     displayBooks(filtered);
 }
 
-// Sort Books
 function sortBooks() {
     const sortValue = document.getElementById('sort-filter').value;
     const category = document.getElementById('category-filter').value;
@@ -1008,7 +978,6 @@ function sortBooks() {
     
     let filtered = [...booksData];
     
-    // Apply filters first
     if (category !== 'all') {
         filtered = filtered.filter(book => book.category === category || (category === 'Arabic' && book.language === 'Arabic'));
     }
@@ -1021,7 +990,6 @@ function sortBooks() {
         filtered = filtered.filter(searchIn);
     }
     
-    // Apply sorting
     switch(sortValue) {
         case 'price-low':
             filtered.sort((a, b) => a.price - b.price);
@@ -1040,7 +1008,6 @@ function sortBooks() {
     displayBooks(filtered);
 }
 
-// Check for category filter from home page
 function checkCategoryFilter() {
     const selectedCategory = sessionStorage.getItem('selectedCategory');
     if (selectedCategory) {
@@ -1052,20 +1019,17 @@ function checkCategoryFilter() {
         sessionStorage.removeItem('selectedCategory');
     }
 }
-// Add this at the end of your file to force load on books page
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Small delay to ensure DOM is fully ready
     setTimeout(() => {
         const booksGrid = document.getElementById('books-grid');
         if (booksGrid && window.location.pathname.includes('books.html')) {
-            // If grid is empty, load all books
             if (booksGrid.children.length === 0) {
                 console.log('Force loading books...');
                 loadAllBooks();
             }
         }
         
-        // Also check Arabic section on home page
         const arabicGrid = document.getElementById('arabic-books-grid');
         if (arabicGrid && window.location.pathname.includes('index.html')) {
             if (arabicGrid.children.length === 0) {
