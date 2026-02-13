@@ -1,51 +1,32 @@
-/**
- * Cart Management JavaScript for BookHaven
- * Handles cart operations, promo codes, and checkout preparation
- */
-
-// Initialize cart
 let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
 let appliedPromo = null;
 
-// Promo codes configuration
 const promoCodes = {
     'BOOKS20': { discount: 0.20, description: '20% off' },
     'SAVE10': { discount: 0.10, description: '10% off' },
     'WELCOME': { discount: 0.15, description: '15% off for new customers' }
 };
 
-// Check if user is logged in before adding to cart
 function checkLoginBeforeAction(action) {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    
     if (!currentUser) {
         showToast('Please login to add items to cart', 'error');
-        
-        // Store intended action
         sessionStorage.setItem('redirectAfterLogin', window.location.href);
-        
         setTimeout(() => {
             window.location.href = 'login.html';
         }, 1500);
-        
         return false;
     }
-    
     return true;
 }
 
-// Add to Cart with login check
 function addToCart(bookId) {
-    // Check login first
     if (!checkLoginBeforeAction('addToCart')) {
         return;
     }
-    
     const book = booksData.find(b => b.id === bookId);
     if (!book) return;
-    
     const existingItem = cart.find(item => item.id === bookId);
-    
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -58,20 +39,14 @@ function addToCart(bookId) {
             quantity: 1
         });
     }
-    
     saveCart();
     updateCartCount();
     showToast(`${book.title} added to cart!`);
-    
-    // Redirect to cart page
     setTimeout(() => {
         window.location.href = 'cart.html';
     }, 800);
 }
 
-// Rest of your cart.js functions remain the same...
-
-// Remove from Cart
 function removeFromCart(bookId) {
     cart = cart.filter(item => item.id !== bookId);
     saveCart();
@@ -80,11 +55,17 @@ function removeFromCart(bookId) {
     showToast('Item removed from cart');
 }
 
-// Update Quantity
+function removeFromCart(bookId) {
+    cart = cart.filter(item => item.id !== bookId);
+    saveCart();
+    updateCartCount();
+    renderCart();
+    showToast('Item removed from cart');
+}
+
 function updateQuantity(bookId, change) {
     const item = cart.find(item => item.id === bookId);
     if (!item) return;
-    
     item.quantity += change;
     
     if (item.quantity <= 0) {
@@ -97,12 +78,9 @@ function updateQuantity(bookId, change) {
     renderCart();
 }
 
-// Save Cart to Session Storage
 function saveCart() {
     sessionStorage.setItem('cart', JSON.stringify(cart));
 }
-
-// Render Cart Page
 function renderCart() {
     const container = document.getElementById('cart-items');
     const emptyCart = document.getElementById('empty-cart');
@@ -117,10 +95,8 @@ function renderCart() {
         updateSummary();
         return;
     }
-    
     emptyCart.classList.add('hidden');
     if (checkoutBtn) checkoutBtn.disabled = false;
-    
     container.innerHTML = cart.map(item => `
         <div class="bg-white dark:bg-dark rounded-lg shadow p-4 flex items-center space-x-4">
             <img src="${item.image}" alt="${item.title}" class="w-20 h-28 object-cover rounded-md">
@@ -154,32 +130,26 @@ function renderCart() {
     updateSummary();
 }
 
-// Update Order Summary
 function updateSummary() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const discount = appliedPromo ? subtotal * appliedPromo.discount : 0;
     const total = subtotal - discount;
-    
     const subtotalEl = document.getElementById('subtotal');
     const discountEl = document.getElementById('discount');
     const totalEl = document.getElementById('total');
-    
     if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotal);
     if (discountEl) discountEl.textContent = `-${formatCurrency(discount)}`;
     if (totalEl) totalEl.textContent = formatCurrency(total);
 }
 
-// Apply Promo Code
 function applyPromoCode() {
     const input = document.getElementById('promo-code');
     const message = document.getElementById('promo-message');
     const code = input.value.trim().toUpperCase();
-    
     if (!code) {
         showPromoMessage('Please enter a promo code', 'error');
         return;
     }
-    
     if (promoCodes[code]) {
         appliedPromo = promoCodes[code];
         showPromoMessage(`${appliedPromo.description} applied!`, 'success');
@@ -202,13 +172,10 @@ function showPromoMessage(text, type) {
     }
 }
 
-// Proceed to Checkout
 function proceedToCheckout() {
-    // Check login before checkout
     if (!checkLoginBeforeAction('checkout')) {
         return;
     }
-    
     if (cart.length === 0) {
         showToast('Your cart is empty!', 'error');
         return;
@@ -216,11 +183,9 @@ function proceedToCheckout() {
     window.location.href = 'checkout.html';
 }
 
-// Initialize cart page
 document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname.includes('cart.html')) {
         renderCart();
-        
         const savedPromo = sessionStorage.getItem('appliedPromo');
         if (savedPromo) {
             appliedPromo = JSON.parse(savedPromo);

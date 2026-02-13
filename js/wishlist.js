@@ -1,30 +1,17 @@
-/**
- * Wishlist Management JavaScript for BookHaven
- * Handles wishlist operations and modal display
- */
-
-// Initialize wishlist
 let wishlist = JSON.parse(sessionStorage.getItem('wishlist')) || [];
 
-// Toggle Wishlist (Add/Remove)
 function toggleWishlist(bookId) {
     const index = wishlist.indexOf(bookId);
     const book = booksData.find(b => b.id === bookId);
-    
     if (index === -1) {
-        // Add to wishlist
         wishlist.push(bookId);
         showToast(`${book.title} added to wishlist!`);
     } else {
-        // Remove from wishlist
         wishlist.splice(index, 1);
         showToast(`${book.title} removed from wishlist`);
     }
-    
     saveWishlist();
     updateWishlistUI();
-    
-    // Refresh current page display
     if (window.location.pathname.includes('books.html')) {
         loadAllBooks();
     } else if (window.location.pathname.includes('book-details.html')) {
@@ -34,40 +21,28 @@ function toggleWishlist(bookId) {
     }
 }
 
-// Check if book is in wishlist
 function isBookInWishlist(bookId) {
     return wishlist.includes(bookId);
 }
-
-// Save Wishlist
 function saveWishlist() {
     sessionStorage.setItem('wishlist', JSON.stringify(wishlist));
 }
-
-// Show Wishlist Modal
 function showWishlist() {
     const modal = document.getElementById('wishlist-modal');
     const container = document.getElementById('wishlist-items');
-    
     if (!modal || !container) return;
-    
     renderWishlistItems();
     modal.classList.remove('hidden');
 }
-
-// Close Wishlist Modal
 function closeWishlist() {
     const modal = document.getElementById('wishlist-modal');
     if (modal) {
         modal.classList.add('hidden');
     }
 }
-
-// Render Wishlist Items
 function renderWishlistItems() {
     const container = document.getElementById('wishlist-items');
     if (!container) return;
-    
     if (wishlist.length === 0) {
         container.innerHTML = `
             <div class="text-center py-8 text-gray-500">
@@ -79,9 +54,7 @@ function renderWishlistItems() {
         `;
         return;
     }
-    
     const wishlistBooks = booksData.filter(book => wishlist.includes(book.id));
-    
     container.innerHTML = wishlistBooks.map(book => `
         <div class="flex items-center space-x-4 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
             <img src="${book.image}" alt="${book.title}" class="w-16 h-20 object-cover rounded">
@@ -108,13 +81,10 @@ function renderWishlistItems() {
     `).join('');
 }
 
-// Update Wishlist UI (heart icons)
 function updateWishlistUI() {
-    // This function can be used to update any global wishlist indicators
-    // Currently handled by re-rendering in individual page functions
+
 }
 
-// Close modal when clicking outside
 document.addEventListener('click', function(event) {
     const modal = document.getElementById('wishlist-modal');
     if (event.target === modal) {

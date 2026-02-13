@@ -1,11 +1,7 @@
-/* Custom Styles for BookHaven */
-
-/* Smooth transitions */
 * {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -28,7 +24,6 @@
     background: #7C3AED;
 }
 
-/* Animation classes */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -44,7 +39,6 @@
     animation: fadeIn 0.8s ease-out;
 }
 
-/* Book card hover effect */
 .book-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -54,7 +48,6 @@
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Button hover effects */
 .btn-primary {
     position: relative;
     overflow: hidden;
@@ -78,12 +71,9 @@
     height: 300px;
 }
 
-/* Form input focus styles */
 input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
-
-/* Loading spinner */
 .spinner {
     border: 3px solid #f3f3f3;
     border-top: 3px solid #8B5CF6;
@@ -98,7 +88,6 @@ input:focus, select:focus, textarea:focus {
     100% { transform: rotate(360deg); }
 }
 
-/* Toast animation */
 .toast-enter {
     transform: translateY(0);
     opacity: 1;
@@ -109,7 +98,6 @@ input:focus, select:focus, textarea:focus {
     opacity: 0;
 }
 
-/* Image placeholder */
 .book-cover {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
@@ -121,7 +109,6 @@ input:focus, select:focus, textarea:focus {
     padding: 1rem;
 }
 
-/* Quantity input styling */
 .quantity-input::-webkit-inner-spin-button,
 .quantity-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -133,7 +120,6 @@ input:focus, select:focus, textarea:focus {
     appearance: textfield;
 }
 
-/* Promo code badge */
 .promo-badge {
     background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     color: white;
@@ -143,7 +129,6 @@ input:focus, select:focus, textarea:focus {
     font-weight: 600;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
     .book-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -156,7 +141,6 @@ input:focus, select:focus, textarea:focus {
     }
 }
 
-/* Dark mode specific adjustments */
 .dark .shadow-lg {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
 }
@@ -165,7 +149,6 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
-/* Print styles */
 @media print {
     nav, footer, .no-print {
         display: none;
@@ -176,13 +159,11 @@ input:focus, select:focus, textarea:focus {
         color: black;
     }
 }
-/* Arabic Font Support */
 .font-arabic {
     font-family: 'Noto Naskh Arabic', 'Traditional Arabic', 'Segoe UI', serif;
     line-height: 1.8;
 }
 
-/* Animation for blob background */
 @keyframes blob {
     0% { transform: translate(0px, 0px) scale(1); }
     33% { transform: translate(30px, -50px) scale(1.1); }
@@ -202,7 +183,6 @@ input:focus, select:focus, textarea:focus {
     animation-delay: 4s;
 }
 
-/* Hide scrollbar for bestsellers */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
@@ -211,7 +191,6 @@ input:focus, select:focus, textarea:focus {
     scrollbar-width: none;
 }
 
-/* Line clamp utilities */
 .line-clamp-1 {
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -228,7 +207,6 @@ input:focus, select:focus, textarea:focus {
     overflow: hidden;
 }
 
-/* Enhanced card hover */
 .book-card {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -238,7 +216,6 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* Gradient text animation */
 @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
