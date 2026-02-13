@@ -19,13 +19,13 @@
                         emerald: '#10B981'
                     },
                     fontFamily: {
-                        arabic: ['Noto Naskh Arabic', 'Traditional Arabic', 'serif'],
+                        arabic: ['"Noto Sans Arabic"', 'Tahoma', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-gray-50 dark:bg-darker text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -411,10 +411,12 @@
 
                 <div class="group cursor-pointer" onclick="filterByCategory('Arabic')">
                     <div class="relative overflow-hidden rounded-2xl aspect-square shadow-lg">
-                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                        <!-- Force gradient to always show -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-600 opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" style="background: linear-gradient(to bottom right, #10b981, #0d9488) !important;"></div>
+                        
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
                             <svg class="w-12 h-12 mb-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                             </svg>
                             <span class="text-xl font-bold font-arabic">عربي</span>
                             <span class="text-sm opacity-80 mt-1">Arabic Books</span>

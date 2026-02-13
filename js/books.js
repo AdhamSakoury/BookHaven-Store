@@ -753,7 +753,7 @@ function loadArabicBooks() {
     
     const arabicBooks = booksData.filter(book => book.language === 'Arabic').slice(0, 8);
     
-    container.innerHTML = arabicBooks.map(book => createBookCard(book, true)).join('');
+    container.innerHTML = arabicBooks.map(book => createBookCard(book, true)).join(''); // Pass true here
 }
 
 // Load New Arrivals
@@ -767,11 +767,17 @@ function loadNewArrivals() {
 }
 
 // Create Book Card HTML
-function createBookCard(book, isArabic = false) {
+function createBookCard(book, forceArabic = false) {
     const isInWishlist = isBookInWishlist(book.id);
-    const displayTitle = isArabic && book.title ? book.title : (book.titleEn || book.title);
-    const displayAuthor = isArabic && book.author ? book.author : (book.authorEn || book.author);
-    const displayDescription = isArabic && book.description ? book.description : (book.descriptionEn || book.description);
+    
+    // Determine if we should show Arabic text
+    // Show Arabic if: book is Arabic AND (forceArabic is true OR we're on Arabic section)
+    const showArabic = book.language === 'Arabic' && (forceArabic || book.category === 'Arabic');
+    
+    // Choose display text based on language
+    const displayTitle = showArabic ? book.title : (book.titleEn || book.title);
+    const displayAuthor = showArabic ? book.author : (book.authorEn || book.author);
+    const displayDescription = showArabic ? book.description : (book.descriptionEn || book.description);
     
     const arabicClass = book.language === 'Arabic' ? 'font-arabic' : '';
     const rtlAttr = book.language === 'Arabic' ? 'dir="rtl"' : '';
@@ -816,7 +822,6 @@ function createBookCard(book, isArabic = false) {
         </div>
     `;
 }
-
 // Create Horizontal Book Card for Bestsellers
 function createHorizontalBookCard(book) {
     const isInWishlist = isBookInWishlist(book.id);
@@ -875,15 +880,18 @@ function displayBooks(books) {
     const container = document.getElementById('books-grid');
     const noResults = document.getElementById('no-results');
     
-    if (!container) return;
-    
-    if (books.length === 0) {
-        container.innerHTML = '';
-        noResults.classList.remove('hidden');
+    if (!container) {
+        console.error('Books grid container not found!');
         return;
     }
     
-    noResults.classList.add('hidden');
+    if (books.length === 0) {
+        container.innerHTML = '';
+        if (noResults) noResults.classList.remove('hidden');
+        return;
+    }
+    
+    if (noResults) noResults.classList.add('hidden');
     container.innerHTML = books.map(book => createBookCard(book)).join('');
 }
 
@@ -1044,3 +1052,26 @@ function checkCategoryFilter() {
         sessionStorage.removeItem('selectedCategory');
     }
 }
+// Add this at the end of your file to force load on books page
+document.addEventListener('DOMContentLoaded', function() {
+    // Small delay to ensure DOM is fully ready
+    setTimeout(() => {
+        const booksGrid = document.getElementById('books-grid');
+        if (booksGrid && window.location.pathname.includes('books.html')) {
+            // If grid is empty, load all books
+            if (booksGrid.children.length === 0) {
+                console.log('Force loading books...');
+                loadAllBooks();
+            }
+        }
+        
+        // Also check Arabic section on home page
+        const arabicGrid = document.getElementById('arabic-books-grid');
+        if (arabicGrid && window.location.pathname.includes('index.html')) {
+            if (arabicGrid.children.length === 0) {
+                console.log('Force loading Arabic books...');
+                loadArabicBooks();
+            }
+        }
+    }, 100);
+});
