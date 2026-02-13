@@ -15,7 +15,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.5,
         description: "A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.",
-        image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop",
+        image: "./assets/images/image_1.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -28,7 +28,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.8,
         description: "A gripping tale of racial injustice and childhood innocence in the American South.",
-        image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=600&fit=crop",
+        image: "./assets/images/image_2.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -41,7 +41,7 @@ const booksData = [
         category: "Sci-Fi",
         rating: 4.7,
         description: "A dystopian social science fiction novel and cautionary tale about the dangers of totalitarianism.",
-        image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_3.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -54,7 +54,7 @@ const booksData = [
         category: "Romance",
         rating: 4.6,
         description: "A romantic novel of manners that depicts the British Regency era.",
-        image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop",
+        image: "./assets/images/image_4.png",
         language: "English",
         isNew: false,
         isBestseller: false
@@ -67,7 +67,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.2,
         description: "A story about teenage angst and alienation in post-war America.",
-        image: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&h=600&fit=crop",
+        image: "./assets/images/image_5.png",
         language: "English",
         isNew: false,
         isBestseller: false
@@ -80,7 +80,7 @@ const booksData = [
         category: "Mystery",
         rating: 4.3,
         description: "A mystery thriller that follows symbologist Robert Langdon and cryptologist Sophie Neveu.",
-        image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&h=600&fit=crop",
+        image: "./assets/images/image_6.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -93,7 +93,7 @@ const booksData = [
         category: "Non-Fiction",
         rating: 4.7,
         description: "A brief history of humankind, from the Stone Age to the modern age.",
-        image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_7.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -106,7 +106,7 @@ const booksData = [
         category: "Sci-Fi",
         rating: 4.8,
         description: "A science fiction masterpiece set on the desert planet Arrakis.",
-        image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400&h=600&fit=crop",
+        image: "./assets/images/image_8.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -119,7 +119,7 @@ const booksData = [
         category: "Mystery",
         rating: 4.4,
         description: "A psychological thriller about a woman's act of violence against her husband.",
-        image: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=400&h=600&fit=crop",
+        image: "./assets/images/image_9.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -132,7 +132,7 @@ const booksData = [
         category: "Non-Fiction",
         rating: 4.9,
         description: "The memoir of former First Lady Michelle Obama.",
-        image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop",
+        image: "./assets/images/image_10.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -145,7 +145,7 @@ const booksData = [
         category: "Romance",
         rating: 4.5,
         description: "A romantic novel about a young couple who fall in love in the 1940s.",
-        image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=600&fit=crop",
+        image: "./assets/images/image_11.png",
         language: "English",
         isNew: false,
         isBestseller: false
@@ -158,7 +158,7 @@ const booksData = [
         category: "Sci-Fi",
         rating: 4.9,
         description: "A lone astronaut must save Earth from an extinction-level threat.",
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=600&fit=crop",
+        image: "./assets/images/image_12.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -172,7 +172,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.6,
         description: "Between life and death there is a library with infinite possibilities.",
-        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=600&fit=crop",
+        image: "./assets/images/image_13.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -185,7 +185,7 @@ const booksData = [
         category: "Non-Fiction",
         rating: 4.8,
         description: "A memoir about a young girl who leaves her survivalist family to pursue education.",
-        image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=400&h=600&fit=crop",
+        image: "./assets/images/image_14.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -198,7 +198,7 @@ const booksData = [
         category: "Mystery",
         rating: 4.4,
         description: "A thriller about a marriage gone terribly wrong.",
-        image: "https://images.unsplash.com/photo-1585855751645-0f3f7f7f7f7f?w=400&h=600&fit=crop",
+        image: "./assets/images/image_15.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -211,7 +211,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.7,
         description: "A philosophical book about following your dreams.",
-        image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop",
+        image: "./assets/images/image_16.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -224,7 +224,7 @@ const booksData = [
         category: "Non-Fiction",
         rating: 4.9,
         description: "An easy and proven way to build good habits and break bad ones.",
-        image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&h=600&fit=crop",
+        image: "./assets/images/image_17.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -237,7 +237,7 @@ const booksData = [
         category: "Romance",
         rating: 4.8,
         description: "A reclusive Hollywood movie icon finally tells her story.",
-        image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=600&fit=crop",
+        image: "./assets/images/image_18.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -250,7 +250,7 @@ const booksData = [
         category: "Non-Fiction",
         rating: 4.6,
         description: "The two systems that drive the way we think.",
-        image: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=600&fit=crop",
+        image: "./assets/images/image_19.png",
         language: "English",
         isNew: false,
         isBestseller: false
@@ -263,7 +263,7 @@ const booksData = [
         category: "Sci-Fi",
         rating: 4.7,
         description: "In a dystopian future, teenagers are forced to fight to the death on live television.",
-        image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_20.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -276,7 +276,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.8,
         description: "A murder mystery and coming-of-age story set in the marshes of North Carolina.",
-        image: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=400&h=600&fit=crop",
+        image: "./assets/images/image_21.png",
         language: "English",
         isNew: false,
         isBestseller: true
@@ -289,7 +289,7 @@ const booksData = [
         category: "Non-Fiction",
         rating: 4.8,
         description: "Timeless lessons on wealth, greed, and happiness.",
-        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=600&fit=crop",
+        image: "./assets/images/image_22.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -302,7 +302,7 @@ const booksData = [
         category: "Mystery",
         rating: 4.9,
         description: "The complete collection of Sherlock Holmes mysteries.",
-        image: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?w=400&h=600&fit=crop",
+        image: "./assets/images/image_23.png",
         language: "English",
         isNew: false,
         isBestseller: false
@@ -315,7 +315,7 @@ const booksData = [
         category: "Fiction",
         rating: 4.6,
         description: "A woman makes a Faustian bargain to live forever and is cursed to be forgotten by everyone she meets.",
-        image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop",
+        image: "./assets/images/image_24.png",
         language: "English",
         isNew: true,
         isBestseller: true
@@ -333,7 +333,7 @@ const booksData = [
         rating: 4.8,
         description: "رواية خالدة تدور حول حارة مصرية وصراع الخير والشر عبر أجيال متعاقبة.",
         descriptionEn: "A timeless novel about an Egyptian alley and the struggle between good and evil across generations.",
-        image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop",
+        image: "./assets/images/image_25.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -349,7 +349,7 @@ const booksData = [
         rating: 4.6,
         description: "رواية ترصد رحلة رجل خرج من السجن يبحث عن الانتقام.",
         descriptionEn: "A novel tracking the journey of a man released from prison seeking revenge.",
-        image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_26.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -365,7 +365,7 @@ const booksData = [
         rating: 4.9,
         description: "من أعظم الروايات العربية، تناقش الصراع بين الشرق والغرب.",
         descriptionEn: "One of the greatest Arabic novels, discussing the clash between East and West.",
-        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=600&fit=crop",
+        image: "./assets/images/image_27.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -381,7 +381,7 @@ const booksData = [
         rating: 4.7,
         description: "الجزء الأول من ثلاثية تحكي حكايات الحب والوطن في الجزائر.",
         descriptionEn: "First part of a trilogy telling tales of love and homeland in Algeria.",
-        image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=600&fit=crop",
+        image: "./assets/images/image_28.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -397,7 +397,7 @@ const booksData = [
         rating: 4.5,
         description: "سيرة ذاتية صادقة عن طفولة بائسة في المغرب.",
         descriptionEn: "An honest autobiography about a miserable childhood in Morocco.",
-        image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=400&h=600&fit=crop",
+        image: "./assets/images/image_29.png",
         language: "Arabic",
         isNew: false,
         isBestseller: false
@@ -413,7 +413,7 @@ const booksData = [
         rating: 4.8,
         description: "مجموعة قصصية عن النكبة الفلسطينية والشتات.",
         descriptionEn: "Short stories about the Palestinian Nakba and diaspora.",
-        image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop",
+        image: "./assets/images/image_30.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -429,7 +429,7 @@ const booksData = [
         rating: 4.7,
         description: "سيرة ذاتية لعميد الأدب العربي عن نشأته في الصعيد.",
         descriptionEn: "Autobiography of the Dean of Arabic Literature about his upbringing in Upper Egypt.",
-        image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=600&fit=crop",
+        image: "./assets/images/image_31.png",
         language: "Arabic",
         isNew: false,
         isBestseller: false
@@ -445,7 +445,7 @@ const booksData = [
         rating: 4.6,
         description: "ملحمة روائية عن حارة مصرية وأهلها عبر عدة أجيال.",
         descriptionEn: "An epic novel about an Egyptian alley and its people across generations.",
-        image: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&h=600&fit=crop",
+        image: "./assets/images/image_32.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -461,7 +461,7 @@ const booksData = [
         rating: 4.5,
         description: "رواية تاريخية عن صراع الكنيسة في القرن الخامس الميلادي.",
         descriptionEn: "Historical novel about church conflict in the 5th century AD.",
-        image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_33.png",
         language: "Arabic",
         isNew: true,
         isBestseller: true
@@ -477,7 +477,7 @@ const booksData = [
         rating: 4.4,
         description: "رواية بوليسية مشوقة عن مصور يكتشف جريمة قتل بالصدفة.",
         descriptionEn: "An exciting crime novel about a photographer who accidentally discovers a murder.",
-        image: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=400&h=600&fit=crop",
+        image: "./assets/images/image_34.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -493,7 +493,7 @@ const booksData = [
         rating: 4.6,
         description: "طبيب نفسي يعود إلى العمل بعد خمس سنوات في قسم الحبس.",
         descriptionEn: "A psychiatrist returns to work after five years in solitary confinement.",
-        image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&h=600&fit=crop",
+        image: "./assets/images/image_35.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -509,7 +509,7 @@ const booksData = [
         rating: 4.3,
         description: "من سلسلة ما وراء الطبيعة، رعب وإثارة في مستشفى مهجور.",
         descriptionEn: "From the Paranormal series, horror and thriller in an abandoned hospital.",
-        image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop",
+        image: "./assets/images/image_36.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -525,7 +525,7 @@ const booksData = [
         rating: 4.9,
         description: "من أشهر كتب الأدب العالمي، محادثات في الحب والحياة والموت.",
         descriptionEn: "One of the most famous books in world literature, conversations on love, life, and death.",
-        image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400&h=600&fit=crop",
+        image: "./assets/images/image_37.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -541,7 +541,7 @@ const booksData = [
         rating: 4.7,
         description: "رحلة فكرية وروحية في البحث عن الحقيقة.",
         descriptionEn: "An intellectual and spiritual journey in search of truth.",
-        image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&h=600&fit=crop",
+        image: "./assets/images/image_38.png",
         language: "Arabic",
         isNew: false,
         isBestseller: false
@@ -557,7 +557,7 @@ const booksData = [
         rating: 4.4,
         description: "رواية تاريخية عن مصر في أواخر القرن التاسع عشر.",
         descriptionEn: "Historical novel about Egypt in the late 19th century.",
-        image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=400&h=600&fit=crop",
+        image: "./assets/images/image_39.png",
         language: "Arabic",
         isNew: true,
         isBestseller: true
@@ -573,7 +573,7 @@ const booksData = [
         rating: 4.5,
         description: "رواية تاريخية عن ثورة 1919 في مصر.",
         descriptionEn: "Historical novel about the 1919 revolution in Egypt.",
-        image: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=600&fit=crop",
+        image: "./assets/images/image_40.png",
         language: "Arabic",
         isNew: true,
         isBestseller: true
@@ -589,7 +589,7 @@ const booksData = [
         rating: 4.6,
         description: "رواية فائزة بجائزة البوكر عن الهوية والانتماء.",
         descriptionEn: "IPAF-winning novel about identity and belonging.",
-        image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_41.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -605,7 +605,7 @@ const booksData = [
         rating: 4.3,
         description: "رواية عن العمالة الوافدة في الخليج العربي.",
         descriptionEn: "A novel about migrant workers in the Arabian Gulf.",
-        image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop",
+        image: "./assets/images/image_42.png",
         language: "Arabic",
         isNew: false,
         isBestseller: false
@@ -621,7 +621,7 @@ const booksData = [
         rating: 4.7,
         description: "الجزء الثاني من الثلاثية، حب وثورة وفن.",
         descriptionEn: "Second part of the trilogy: love, revolution, and art.",
-        image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=600&fit=crop",
+        image: "./assets/images/image_43.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -637,7 +637,7 @@ const booksData = [
         rating: 4.6,
         description: "الجزء الثالث من الثلاثية، ختام ملحمي للسلسلة.",
         descriptionEn: "Third part of the trilogy, an epic conclusion to the series.",
-        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=600&fit=crop",
+        image: "./assets/images/image_44.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -653,7 +653,7 @@ const booksData = [
         rating: 4.4,
         description: "رواية ديستوبية عن مصر في المستقبل.",
         descriptionEn: "A dystopian novel about Egypt in the future.",
-        image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=400&h=600&fit=crop",
+        image: "./assets/images/image_45.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
@@ -669,7 +669,7 @@ const booksData = [
         rating: 4.5,
         description: "دراسة فلسفية في طبيعة الإنسان وقدراته.",
         descriptionEn: "A philosophical study on human nature and capabilities.",
-        image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&h=600&fit=crop",
+        image: "./assets/images/image_46.png",
         language: "Arabic",
         isNew: false,
         isBestseller: false
@@ -685,7 +685,7 @@ const booksData = [
         rating: 4.2,
         description: "رواية عن الثورة المصرية وأحلام التغيير.",
         descriptionEn: "A novel about the Egyptian revolution and dreams of change.",
-        image: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=600&fit=crop",
+        image: "./assets/images/image_47.png",
         language: "Arabic",
         isNew: true,
         isBestseller: true
@@ -701,7 +701,7 @@ const booksData = [
         rating: 4.6,
         description: "رواية شهيرة عن المجتمع المصري من خلال عمارة سكنية.",
         descriptionEn: "A famous novel about Egyptian society through a residential building.",
-        image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop",
+        image: "./assets/images/image_48.png",
         language: "Arabic",
         isNew: false,
         isBestseller: true
